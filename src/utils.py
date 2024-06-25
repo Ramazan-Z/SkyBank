@@ -15,6 +15,9 @@ DEFAULT_STOCKS = ["AAPL"]
 CURRENCY_URL = "https://api.apilayer.com/exchangerates_data/latest"
 STOCK_URL = "https://financialmodelingprep.com/api/v3/quote-short/"
 
+if not os.path.exists(os.path.join(ROOT, "logs")):
+    os.mkdir(os.path.join(ROOT, "logs"))  # Создать папку «logs», если ее нет.
+
 # Создание логера
 logg = logging.getLogger(__name__)
 # Создание хендлера

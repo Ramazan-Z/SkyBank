@@ -37,6 +37,8 @@ def save_reports(file_name: Optional[str] = None) -> Callable:
         def inner(*args: tuple, **kwargs: dict) -> Any:
             result = func(*args, **kwargs)
             data = json.loads(result)
+            if not os.path.exists(os.path.join(ROOT, "reports")):
+                os.mkdir(os.path.join(ROOT, "reports"))
             if data:
                 df = pd.DataFrame(data)
                 if file_name is None:
