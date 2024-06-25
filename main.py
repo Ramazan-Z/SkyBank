@@ -18,36 +18,36 @@ transactions_lst = transactions_df.to_dict("records")
 
 
 def get_year() -> int:
-	"""Функция получает у пользователя год"""
-	while True:
-		try:
-			year = int(input("Введите год: "))
-			if 1 <= year <= 9999:
-				return year
-		except ValueError:
-			pass
-         
-            	   	
-def get_month() -> int:
-	"""Функция получает у пользователя месяц"""
-	while True:
-		try:
-			month = int(input("Введите месяц: "))
-			if 1 <= month <= 12:
-				return month
-		except ValueError:
-			pass
+    """Функция получает у пользователя год"""
+    while True:
+        try:
+            year = int(input("Введите год: "))
+            if 1 <= year <= 9999:
+                return year
+        except ValueError:
+            pass
 
-	
+
+def get_month() -> int:
+    """Функция получает у пользователя месяц"""
+    while True:
+        try:
+            month = int(input("Введите месяц: "))
+            if 1 <= month <= 12:
+                return month
+        except ValueError:
+            pass
+
+
 def get_day(year: int, month: int) -> int:
-	"""Функция получает у пользователя день"""
-	while True:
-		try:
-			day = int(input("Введите день: "))
-			if 1 <= day <= calendar.monthrange(year, month)[1]:
-				return day
-		except ValueError:
-			pass
+    """Функция получает у пользователя день"""
+    while True:
+        try:
+            day = int(input("Введите день: "))
+            if 1 <= day <= calendar.monthrange(year, month)[1]:
+                return day
+        except ValueError:
+            pass
 
 
 def show_main_page() -> None:
@@ -68,7 +68,7 @@ def show_main_page() -> None:
 
     print("Расходы в зтом месяце:")
     if not data["cards"]:
-    	print("  Не найдено")
+        print("  Не найдено")
     for card in data["cards"]:
         print("Карта:", card["last_digits"])
         print("Расходы:", card["total_spent"])
@@ -76,7 +76,7 @@ def show_main_page() -> None:
 
     print("Топ 5 расходов в этом месяце:")
     if not data["top_transactions"]:
-    	print("  Не найдено")
+        print("  Не найдено")
     for trans in data["top_transactions"]:
         print(trans["date"], "Потрачено:", trans["amount"])
         print("Категория:", trans["category"])
@@ -123,22 +123,22 @@ def show_reports() -> None:
     )
     # Запрос категории у ползователя
     category = input("Введите категорию: ")
-    
+
     if input("Использовать текущую дату? да/нет: ").lower() == "да":
         print(f"Выбрана текущая дата: {datetime.now()}")
         transactions = spending_by_category(transactions_df, category)
-        
+
     else:
         # Запрос даты у ползователя
-	    year = get_year()
-	    month = get_month()
-	    day = get_day(year, month)
-	    date_str = datetime.strftime(datetime(year, month, day), "%Y-%m-%d %H:%M:%S")
-	    print(f"Выбрана дата: {date_str}")
-	    # Запрос информации для отображения
-	    transactions = spending_by_category(transactions_df, category, date_str)
+        year = get_year()
+        month = get_month()
+        day = get_day(year, month)
+        date_str = datetime.strftime(datetime(year, month, day), "%Y-%m-%d %H:%M:%S")
+        print(f"Выбрана дата: {date_str}")
+        # Запрос информации для отображения
+        transactions = spending_by_category(transactions_df, category, date_str)
     transactions = json.loads(transactions)
-    #Отображение
+    # Отображение
     if transactions:
         print(f"Расходов по категории «{category.lower()}» за указанный период: {len(transactions)}\n")
         for tr in transactions:
